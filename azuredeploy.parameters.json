@@ -1,0 +1,33 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "orchestratorType": {
+      "value": "DCOS"
+    },
+    "masterDnsNamePrefix": {
+      "value": "fsgbureauspcit"
+    },
+    "agentDnsNamePrefix": {
+      "value": "fsgbureauspagentscit"
+    },
+    "linuxAdminUsername": {
+      "value": "bureau_user"
+    },
+    "agentVMSize": {
+      "value": "Standard_D3"
+    },
+    "masterCount": {
+      "value": 1
+    },
+    "agentCount": {
+      "value": 2
+    },
+    "enableDiagnostics": {
+      "value": true
+    },
+    "sshRSAPublicKey": {
+      "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDg1vYnrG2eXDt9c8XrWvRdis6D/I0LvoMTa7jOBftQvnYOJcu0WcCNiS6f9TMH8fE3PZ5Sj6O3IiMdkh5Wx5imw3Ps/aRGqLEvuvXN05p15I/9IVz8auLlfieb8yKmiq4dSyG/NFWDhocOHD0taBK9dBzIo2J0n1LJFJxj3L6j0uyaKgBo/T7wuivYRH1hUY+fnvaaynUVqldcPkSlB2WpGugXW0cR2/u1xbZgyGtgnzEGN2oIQ7F8BRYnzrVbHgbFZrEN1Xk03dOh2jm48dniRsDb7G0CHr/HRFLsdYOWPzunMfUED+OUz/sfBgjaGhyLr0VybXRaTc9h7lKeSIPp bureau_user"
+    }
+  }
+}
