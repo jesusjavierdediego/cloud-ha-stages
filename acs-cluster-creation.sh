@@ -96,7 +96,7 @@ fi
 lbInstall=`dcos package list | grep -i marathon-lb`
 if [ "$lbInstall" == "" ]
 then
-  dcos package install marathon-lb
+  dcos package install marathon-lb --yes
 
   lbName=$(azure group show $resourcegroup | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//')
   az network lb rule create --resource-group $resourcegroup --lb-name  $lbName --name haproxy --protocol tcp --frontend-port 9090 --backend-port 9090

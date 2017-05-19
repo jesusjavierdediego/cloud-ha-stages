@@ -36,43 +36,41 @@ cat acs-dcos-deploy.json | sed 's/XXX_USER_XXX/'$sshuser'/g' | sed 's/XXX_AGENTV
 
 
 
-# 4-Create RG
 if [ "$rgExists" == "" ]
 then
-  az group create --name $resourceGroup --location $region;
+  azure group create $resourceGroup -l $region;
 else
   echo "resourcegroup $resourceGroup already exists, using existing group...";
 fi
 
-
-# 5-Create Cluster
 echo $nameExists;
+
 if  [ "$nameExists" == "" ]
 then
-  # azure group deployment create -f template.json $resourceGroup
-  az group deployment create --resource-group $resourceGroup --name $groupName --template-file ./template.json;
-
-  # KEEP FOR ENVIRONMENT PARAMETERS (passing variable avlues as params in the json file)
-  # --parameters @azuredeploy.parameters.json
+  azure group deployment create -f template.json $resourceGroup;
 else
   echo "name $groupName already exists";
-  exit 1;
+  exit 1
 fi
 
 # Set dcos CLI to the host
-sudo ssh -i /home/jdediego/.ssh/id_rsa_azure -v -fNL 80:localhost:80 -p 2200 bureau_user@fsgbureauspcit-mgmt.northeurope.cloudapp.azure.com
+# sleep 10
+sudo ssh -i /home/jdediego/.ssh/id_rsa_stages -v -o ExitOnForwardFailure=yes -fNL 80:localhost:80 -p 2200 -A bureau_user@fsgbureauspcit-mgmt.northeurope.cloudapp.azure.com;
+
+dcos config set core.dcos_url http://localhost;
 
 
 # 6-Create LB for public IP and NSG rules
-lbInstall=`dcos package list | grep -i marathon-lb`;
+lbInstall=`dcos package list | grep -i marathon-lb`
 if [ "$lbInstall" == "" ]
 then
   dcos package install marathon-lb;
 
-  lbName=$(az group show $resourcegroup | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//');
-  az network lb rule create --resource-group $resourcegroup --lb-name  $lbName --name haproxy --protocol tcp --frontend-port 9090 --backend-port 9090;
+  lbName=$(azure group show $resourcegroup | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//');
+  azure network lb rule create -g $resourcegroup --lb-name  $lbName -n haproxy -p tcp -f 9090 -b 9090;
 
-  nsgName=$(az network nsg list --resource-group $resourcegroup| grep agent | grep public | awk '{print $2}');
-  az network nsg rule create --resource-group $resourcegroup --nsg-name $nsgName --name haproxy-rule --access Allow --protocol Tcp --direction Inbound --priority 410 --source-address-prefix Internet --destination-port-range 9090;
-  exit 0;
+  nsgName=$(azure network nsg list -g $resourcegroup| grep agent | grep public | awk '{print $2}');
+  azure network nsg rule create -g $resourcegroup -a $nsgName -n haproxy-rule -c Allow -p Tcp -r Inbound -y 410 -f Internet -u 9090;
+  exit 0
 fi
+
