@@ -31,12 +31,14 @@ rgExists=$(az group list | grep -i $(prop 'resourceGroup'));
 nameExists=$(az network public-ip list | grep -i dcos-master-ip-$(prop 'groupName')-mgmt);
 
 cat acs-dcos-deploy.json | sed 's/XXX_USER_XXX/'$(prop 'sshuser')'/g' | sed 's/XXX_AGENTVMSIZE_XXX/'$(prop 'agentVmSize')'/g' | sed 's/XXX_MASTERCOUNT_XXX/'$(prop 'mastercount')'/g' |  sed 's/XXX_AGENTCOUNT_XXX/'$(prop 'agentcount')'/g' | sed 's/XXX_NAME_XXX/'$(prop 'groupName')'/g' > template.json;
+
 #cat acs-dcos-deploy.json | sed 's/XXX_USER_XXX/'$(prop 'sshuser')'/g' | sed 's/XXX_AGENTVMSIZE_XXX/'$(prop 'agentVmSize')'/g' | sed 's/XXX_MASTERCOUNT_XXX/'$(prop 'mastercount')'/g' |  sed 's/XXX_AGENTCOUNT_XXX/'$(prop 'agentcount')'/g' | sed 's/XXX_NAME_XXX/'$(prop 'groupName')'/g' | sed 's/XXX_PUBLICKEY_XXX/'$(prop 'publicKey')'/g' > template.json;
 
 
 if [ "$rgExists" == "" ]
 then
-  azure group create $(prop 'resourceGroup') -l $(prop 'region');
+  #azure group create $(prop 'resourceGroup') -l $(prop 'region');
+  az group create --location $(prop 'region') --name $(prop 'resourceGroup')
 else
   echo "ResourceGroup $(prop 'resourceGroup') already exists, using existing group...";
 fi
@@ -45,7 +47,8 @@ echo $nameExists;
 
 if  [ "$nameExists" == "" ]
 then
-  azure group deployment create -f template.json "$(prop 'resourceGroup')";
+  #azure group deployment create -f template.json "$(prop 'resourceGroup')";
+  az group deployment create --resource-group $(prop 'resourceGroup') --name $(prop 'groupName') --template-file template.json
 else
   echo "name $(prop 'groupName') already exists";
   exit 1
