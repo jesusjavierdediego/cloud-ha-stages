@@ -17,6 +17,7 @@ function prop {
 
 # deploy app
 dcos marathon app add $(prop 'jsonappfile')
+dcos marathon app add $(prop 'jsonappfile')
 
 # config loadbalancer for app
 lbName=$(azure group show $(prop 'resourceGroup') | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//')

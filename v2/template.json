@@ -43,7 +43,7 @@
   "variables": {
     "agentVMSize":"Standard_D3",  
     "adminUsername":"bureau_user",
-    "agentCount": 3,
+    "agentCount": 2,
     "agentsEndpointDNSNamePrefix":"fsgbureauspqat-agents",
     "masterCount": 1,
     "mastersEndpointDNSNamePrefix":"fsgbureauspqat-mgmt",

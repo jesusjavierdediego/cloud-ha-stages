@@ -15,14 +15,13 @@ function prop {
 
 
 # deploy app
-#dcos marathon app add $(prop 'redis.jsonappfile')
+dcos marathon app add $(prop 'redis.jsonappfile')
 dcos marathon app add $(prop 'demoapp1.jsonappfile')
 
 
 # config loadbalancer for app
 lbName=$(azure group show $(prop 'resourceGroup') | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//')
 for id in `echo $lbName | tr "-" "\n"`; do echo $id; done
-echo "The ID is : $id"
 az network lb rule create --resource-group $(prop 'resourceGroup') --lb-name $lbName --name $(prop 'demoapp1.name')  --protocol tcp --frontend-ip-name dcos-agent-lbFrontEnd-$id --frontend-port $(prop 'demoapp1.serviceport') --backend-pool-name dcos-agent-pool-$id --backend-port $(prop 'demoapp1.serviceport') 
 
 
