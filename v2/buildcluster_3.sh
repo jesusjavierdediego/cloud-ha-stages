@@ -21,13 +21,15 @@ extLbInstall=`dcos package list | grep -i lb-external`
 intLbInstall=`dcos package list | grep -i lb-internal`
 weavescopeInstall=`dcos package list | grep -i weavescope`
 weavescopeProbeInstall=`dcos package list | grep -i weavescope-probe`
+msomsInstall=`dcos package list | grep -i msoms`
 #if [ "$lbInstall" == "" ] && [ "$weavescopeInstall" == "" ] && [ "$weavescopeProbeInstall" == "" ]
-if [ "$extLbInstall" == "" ] && [ "$intLbInstall" == "" ] && [ "$weavescopeInstall" == "" ] && [ "$weavescopeProbeInstall" == "" ]
+if [ "$extLbInstall" == "" ] && [ "$intLbInstall" == "" ] && [ "$weavescopeInstall" == "" ] && [ "$weavescopeProbeInstall" == "" ] && [ "$msomsInstall" == "" ]
 then
   dcos package install weavescope --yes;
   dcos package install weavescope-probe --options=descriptors/weavescope-probe.json  --yes;
   dcos package install marathon-lb --options=descriptors/lb-external-options.json --yes;
   dcos package install marathon-lb --options=descriptors/lb-internal-options.json --yes;
+  dcos package install msoms --options=descriptors/msoms-options.json --yes;
 
   lbName=$(azure group show $(prop 'resourceGroup') | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//')
   for id in `echo $lbName | tr "-" "\n"`; do echo $id; done
