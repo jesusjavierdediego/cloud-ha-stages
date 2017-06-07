@@ -15,7 +15,7 @@ function prop {
 
 
 # deploy app
-dcos marathon app add $(prop 'demoapp3.jsonappfile')
+dcos marathon app add descriptors/${ENV}/nginx-internal.json
 
 
 # config loadbalancer for app

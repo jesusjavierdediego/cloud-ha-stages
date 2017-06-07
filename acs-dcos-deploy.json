@@ -41,6 +41,7 @@
     }
   },
   "variables": {
+    "key":"XXX_PUBLICKEY_XXX",
     "agentVMSize":"XXX_AGENTVMSIZE_XXX",  
     "adminUsername":"XXX_USER_XXX",
     "agentCount": XXX_AGENTCOUNT_XXX,

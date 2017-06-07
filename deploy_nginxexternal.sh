@@ -15,7 +15,7 @@ function prop {
 
 
 # deploy app
-dcos marathon app add $(prop 'demoapp2.jsonappfile')
+dcos marathon app add descriptors/${ENV}/nginx-external.json
 
 # config loadbalancer for app
 lbName=$(azure group show $(prop 'resourceGroup') | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//')

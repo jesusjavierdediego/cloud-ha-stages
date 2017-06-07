@@ -15,8 +15,8 @@ function prop {
 
 
 # deploy app
-dcos marathon app add $(prop 'redis.jsonappfile')
-dcos marathon app add $(prop 'demoapp1.jsonappfile')
+dcos marathon app add descriptors/${ENV}/redis_demo.json
+dcos marathon app add descriptors/${ENV}/java-webapp-redisdemo.json
 
 
 # config loadbalancer for app
