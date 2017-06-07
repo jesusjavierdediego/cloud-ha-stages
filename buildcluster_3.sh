@@ -16,13 +16,12 @@ function prop {
 
 dcos config set core.dcos_url http://localhost;
 
-#lbInstall=`dcos package list | grep -i marathon-lb`
 extLbInstall=`dcos package list | grep -i lb-external`
 intLbInstall=`dcos package list | grep -i lb-internal`
 weavescopeInstall=`dcos package list | grep -i weavescope`
 weavescopeProbeInstall=`dcos package list | grep -i weavescope-probe`
 msomsInstall=`dcos package list | grep -i msoms`
-#if [ "$lbInstall" == "" ] && [ "$weavescopeInstall" == "" ] && [ "$weavescopeProbeInstall" == "" ]
+
 if [ "$extLbInstall" == "" ] && [ "$intLbInstall" == "" ] && [ "$weavescopeInstall" == "" ] && [ "$weavescopeProbeInstall" == "" ] && [ "$msomsInstall" == "" ]
 then
   dcos package install weavescope --yes;
@@ -33,7 +32,7 @@ then
 
   lbName=$(azure group show $(prop 'resourceGroup') | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//')
   for id in `echo $lbName | tr "-" "\n"`; do echo $id; done
-  echo "The ID is : $id"
+  echo "The acs group id is: $id"
   az network lb rule create --resource-group $(prop 'resourceGroup') --lb-name $lbName --name haproxy  --protocol tcp --frontend-ip-name dcos-agent-lbFrontEnd-$id --frontend-port 9090 --backend-pool-name dcos-agent-pool-$id --backend-port 9090   
 
   nsgName=$(azure network nsg list -g $(prop 'resourceGroup')| grep agent | grep public | awk '{print $2}')
@@ -46,6 +45,7 @@ else
   echo "intLbInstall: $intLbInstall";
   echo "weavescopeInstall: $weavescopeInstall";
   echo "weavescopeProbeInstall: $weavescopeProbeInstall";
+  echo "msomsInstall: $msomsInstall";
   exit 1
 fi
 

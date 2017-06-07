@@ -15,7 +15,7 @@ function prop {
 
 
 # deploy app
-dcos marathon app add $(prop 'redis.jsonappfile')
+# dcos marathon app add $(prop 'redis.jsonappfile')
 dcos marathon app add $(prop 'demoapp1.jsonappfile')
 
 

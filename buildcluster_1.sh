@@ -32,8 +32,6 @@ nameExists=$(az network public-ip list | grep -i dcos-master-ip-$(prop 'groupNam
 
 cat acs-dcos-deploy.json | sed 's/XXX_USER_XXX/'$(prop 'sshuser')'/g' | sed 's/XXX_AGENTVMSIZE_XXX/'$(prop 'agentVmSize')'/g' | sed 's/XXX_MASTERCOUNT_XXX/'$(prop 'mastercount')'/g' |  sed 's/XXX_AGENTCOUNT_XXX/'$(prop 'agentcount')'/g' | sed 's/XXX_NAME_XXX/'$(prop 'groupName')'/g' > template.json;
 
-#cat acs-dcos-deploy.json | sed 's/XXX_PUBLICKEY_XXX/'$(prop 'publicKey')'/g' | sed 's/XXX_USER_XXX/'$(prop 'sshuser')'/g' | sed 's/XXX_AGENTVMSIZE_XXX/'$(prop 'agentVmSize')'/g' | sed 's/XXX_MASTERCOUNT_XXX/'$(prop 'mastercount')'/g' |  sed 's/XXX_AGENTCOUNT_XXX/'$(prop 'agentcount')'/g' | sed 's/XXX_NAME_XXX/'$(prop 'groupName')'/g' > template.json;
-
 
 if [ "$rgExists" == "" ]
 then
