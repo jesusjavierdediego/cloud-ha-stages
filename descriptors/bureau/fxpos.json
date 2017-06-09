@@ -1,0 +1,46 @@
+{
+  "id": "fx-pos-web",
+  "cmd": "",
+  "mem": 1024,
+  "cpus": 2.0,
+  "instances": 2,
+  "container": {
+    "type": "DOCKER",
+    "volumes": [
+      {
+        "containerPath": "/etc/localtime",
+        "hostPath": "/etc/localtime",
+        "mode": "R"
+      }
+    ],
+    "docker": {
+      "image": "fsgregistry.azurecr.io/fx-pos-web:0.1.110",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 0,
+          "servicePort": 8090,
+          "protocol": "tcp"
+        },
+        {
+          "containerPort": 8000,
+          "hostPort": 0,
+          "servicePort": 8004,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  },
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "portIndex": 0,
+      "path": "/fx-ms-web/"
+    }
+  ],
+  "labels": {
+    "HAPROXY_GROUP": "external",
+    "HAPROXY_0_STICKY": "true"
+  }
+}

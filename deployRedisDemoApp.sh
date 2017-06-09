@@ -15,8 +15,8 @@ function prop {
 
 
 # deploy app
-dcos marathon app add descriptors/${ENV}/redis_demo.json
-dcos marathon app add descriptors/${ENV}/java-webapp-redisdemo.json
+dcos marathon app add descriptors/redis_demo.json
+dcos marathon app add descriptors/java-webapp-redisdemo.json
 
 
 # config loadbalancer for app

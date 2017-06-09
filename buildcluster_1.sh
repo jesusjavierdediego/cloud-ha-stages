@@ -27,10 +27,11 @@ function prop {
     grep "${1}" env/${ENV}.properties|cut -d'=' -f2
 }
 
+publicKey=$(< $(prop 'publicKey'))
 rgExists=$(az group list | grep -i $(prop 'resourceGroup'));
 nameExists=$(az network public-ip list | grep -i dcos-master-ip-$(prop 'groupName')-mgmt);
 
-cat acs-dcos-deploy.json | sed 's/XXX_USER_XXX/'$(prop 'sshuser')'/g' | sed 's/XXX_AGENTVMSIZE_XXX/'$(prop 'agentVmSize')'/g' | sed 's/XXX_MASTERCOUNT_XXX/'$(prop 'mastercount')'/g' |  sed 's/XXX_AGENTCOUNT_XXX/'$(prop 'agentcount')'/g' | sed 's/XXX_NAME_XXX/'$(prop 'groupName')'/g' > template.json;
+cat acs-dcos-deploy.json | sed 's/XXX_USER_XXX/'$(prop 'sshuser')'/g' | sed 's/XXX_AGENTVMSIZE_XXX/'$(prop 'agentVmSize')'/g' | sed 's/XXX_MASTERCOUNT_XXX/'$(prop 'mastercount')'/g' |  sed 's/XXX_AGENTCOUNT_XXX/'$(prop 'agentcount')'/g' | sed 's/XXX_NAME_XXX/'$(prop 'groupName')'/g' | sed "s|XXX_PUBLICKEY_XXX|$publicKey|" > template.json;
 
 
 if [ "$rgExists" == "" ]
