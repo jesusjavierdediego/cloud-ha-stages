@@ -20,13 +20,13 @@
         {
           "containerPort": 8080,
           "hostPort": 0,
-          "servicePort": 8085,
+          "servicePort": XXX_SERVICEPORT_XXX,
           "protocol": "tcp"
         },
         {
           "containerPort": 8000,
           "hostPort": 0,
-          "servicePort": 8005,
+          "servicePort": XXX_DEBUGPORT_XXX,
           "protocol": "tcp"
         }
       ]

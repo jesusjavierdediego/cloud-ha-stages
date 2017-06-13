@@ -1,0 +1,57 @@
+#==========================================================
+# Azure properties
+#==========================================================
+resourceGroup=FSG_BureauSP_HAStage_QAT
+groupName=fsgbureauspqat
+region=northeurope
+
+#==========================================================
+# User properties
+#==========================================================
+sshuser=bureau_user
+privateKeyPath=~/.ssh/id_rsa_stages
+publicKey=~/.ssh/id_rsa_stages.pub
+
+#==========================================================
+# Cluster properties
+#==========================================================
+mastercount=1
+agentcount=3
+agentVmSize=Standard_DS4
+internalMonitor=true
+
+#==========================================================
+# SSH Tunnel to Cluster properties
+#==========================================================
+originPort=80
+destinationPort=80
+
+#==========================================================
+# Apps properties
+# NAME: Name of the service in Marathon
+# SERVICE PORT: Available port
+# RULE NR: Priority of the rule
+# LOAD DISTRIBUTION MODE: Affinity rule settings for sticky sessions (Default, SourceIP, SourceIPProtocol | default value: default)
+# https://github.com/Azure/azure-content-nlnl/blob/master/articles/load-balancer/load-balancer-distribution-mode.md
+#==========================================================
+#DEMO APP external nginx
+demoapp2.name=nginx-external
+demoapp2.serviceport=10000
+demoapp2.rulenr=1000
+
+#DEMO APP internal nginx
+demoapp3.name=nginx-internal
+demoapp3.serviceport=10003
+demoapp3.rulenr=1003
+
+#DEMO APP MICROSERVICE WITH LB
+demoapp5.name=hello
+demoapp5.serviceport=10002
+demoapp5.rulenr=1002
+
+#DEMO APP MICROSERVICE WITH STICKY SESSION
+demoapp6.name=hello
+demoapp6.serviceport=10003
+demoapp6.rulenr=1003
+demoapp6.probeStickySessionName=HTTPDEMOPROBE
+demoapp6.loadDistributionMode=sourceIPProtocol
