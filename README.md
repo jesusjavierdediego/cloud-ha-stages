@@ -1,7 +1,7 @@
 # Cloud IT PLatform HA Stages/Environments
 <p align="center">
   <img src="https://acomblogimages.blob.core.windows.net/media/Default/Windows-Live-Writer/acslogo.png" width="350"/>
-  <img src="yhttps://mesosphere.com/wp-content/uploads/2016/04/logo-horizontal-styled-400x300@2x.png" width="350"/>
+  <img src="https://mesosphere.com/wp-content/uploads/2016/04/logo-horizontal-styled-400x300@2x.png" width="350"/>
 </p>
 
 ## Description
