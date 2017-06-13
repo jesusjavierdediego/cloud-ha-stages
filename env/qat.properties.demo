@@ -34,6 +34,7 @@ destinationPort=80
 # LOAD DISTRIBUTION MODE: Affinity rule settings for sticky sessions (Default, SourceIP, SourceIPProtocol | default value: default)
 # https://github.com/Azure/azure-content-nlnl/blob/master/articles/load-balancer/load-balancer-distribution-mode.md
 #==========================================================
+
 #DEMO APP external nginx
 demoapp2.name=nginx-external
 demoapp2.serviceport=10000

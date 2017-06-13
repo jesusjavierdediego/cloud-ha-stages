@@ -14,16 +14,17 @@
 # Contact:     
 #
 ##########################################
-SERVICENAME=${1}
-PROFILE=${2}
-INSTANCES=${3:-2}
-VERSION=${4}
-SERVICEPORT=${5}
-DEBUGPORT=${6:-8000}
-PRIORITY=${7}
+STAGE=${1}
+SERVICENAME=${2}
+PROFILE=${3}
+INSTANCES=${4:-2}
+VERSION=${5}
+SERVICEPORT=${6}
+DEBUGPORT=${7:-8000}
+PRIORITY=${8}
 
 function prop {
-    grep "${1}" env/${PROFILE}.properties|cut -d'=' -f2
+    grep "${1}" env/${STAGE}.properties|cut -d'=' -f2
 }
 
 # 1-Replace values in the service descriptor
