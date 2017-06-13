@@ -1,12 +1,12 @@
 {
-  "id": "java-webapp-redisdemo",
+  "id": "hello",
   "mem": 512,
   "cpus": 1.0,
   "instances": 2,
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "fsgregistry.azurecr.io/java-webapp-redisdemo:2.1",
+      "image": "drhelius/helloworld-node-microservice:latest",
       "network": "BRIDGE",
       "portMappings": [{ 
         "containerPort": 8080, 
@@ -20,10 +20,13 @@
     {
       "protocol": "HTTP",
       "portIndex": 0,
-      "path": "/java-webapp-redisdemo/"
+      "path": "/"
     }
   ],
   "labels":{
     "HAPROXY_GROUP":"external"
   }
 }
+
+
+

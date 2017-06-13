@@ -4,7 +4,7 @@
 # AZURE ACS DCOS CLUSTER SCRIPT 
 ################################
 #
-# Description: Executes the steps needed on ACS DCOS
+# What: Executes the steps needed on ACS DCOS
 # Content:
 #    - a scaleset of x amount of machines/nodes for the master (x is parameterized value)
 #    - a scaleset of x amount of machines/nodes for the agents  (x is parameterized value)

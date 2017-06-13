@@ -2,8 +2,7 @@
 
 ##########################################
 #
-# Name:        buildcluster_2.sh
-# Description: Open a SSH tunnel on ACS DCOS
+# What: Open a SSH tunnel on ACS DCOS
 # Contact:     
 #
 ##########################################

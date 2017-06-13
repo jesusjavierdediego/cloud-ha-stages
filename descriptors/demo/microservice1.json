@@ -1,12 +1,12 @@
 {
-  "id": "java-webapp-redisdemo",
+  "id": "hello",
   "mem": 512,
   "cpus": 1.0,
   "instances": 2,
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "cvugrinec/java-webapp-redisdemo:2.1",
+      "image": "fsgregistry.azurecr.io/helloworld-node-microservice:latest",
       "network": "BRIDGE",
       "portMappings": [{ 
         "containerPort": 8080, 
@@ -16,15 +16,19 @@
         } ]
     }
   },
+  "uris":  [
+       "file:///mnt/fsghaenvironments/docker.tar.gz"        
+   ],
   "healthChecks": [
     {
       "protocol": "HTTP",
       "portIndex": 0,
-      "path": "/java-webapp-redisdemo/"
+      "path": "/"
     }
   ],
   "labels":{
-    "HAPROXY_GROUP":"external",
-    "HAPROXY_0_STICKY":"true"
+    "HAPROXY_GROUP":"external"
   }
 }
+
+

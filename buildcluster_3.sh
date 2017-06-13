@@ -2,8 +2,7 @@
 
 ##########################################
 #
-# Name:        buildcluster_3.sh
-# Description: Build a public LB and NSG rule on ACS DCOS
+# What: Build a public LB and NSG rule on ACS DCOS
 # Contact:     
 #
 ##########################################
@@ -25,10 +24,10 @@ msomsInstall=`dcos package list | grep -i msoms`
 if [ "$extLbInstall" == "" ] && [ "$intLbInstall" == "" ] && [ "$weavescopeInstall" == "" ] && [ "$weavescopeProbeInstall" == "" ] && [ "$msomsInstall" == "" ]
 then
   dcos package install weavescope --yes;
-  dcos package install weavescope-probe --options=descriptors/weavescope-probe.json  --yes;
-  dcos package install marathon-lb --options=descriptors/lb-external-options.json --yes;
-  dcos package install marathon-lb --options=descriptors/lb-internal-options.json --yes;
-  dcos package install msoms --options=descriptors/msoms-options.json --yes;
+  dcos package install weavescope-probe --options=descriptors/cluster/weavescope-probe.json  --yes;
+  dcos package install marathon-lb --options=descriptors/cluster/lb-external-options.json --yes;
+  dcos package install marathon-lb --options=descriptors/cluster/lb-internal-options.json --yes;
+  dcos package install msoms --options=descriptors/cluster/msoms-options.json --yes;
 
   lbName=$(azure group show $(prop 'resourceGroup') | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//')
   for id in `echo $lbName | tr "-" "\n"`; do echo $id; done
@@ -48,4 +47,5 @@ else
   echo "msomsInstall: $msomsInstall";
   exit 1
 fi
+
 

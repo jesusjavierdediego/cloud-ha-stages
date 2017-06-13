@@ -1,0 +1,38 @@
+{
+  "id": "notificationserver",
+  "cmd": "java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar /opt/bureau/services/ns.jar  --spring.application.name=notificationserver  --spring.cloud.config.profile=XXX_PROFILE_XXX",
+  "mem": 512,
+  "cpus": 1.0,
+  "instances": XXX_INSTANCES_XXX,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "fsgregistry.azurecr.io/notificationserver:XXX_VERSION_XXX",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 0,
+          "servicePort": 9060,
+          "protocol": "tcp"
+        },
+        {
+          "containerPort": 8000,
+          "hostPort": 0,
+          "servicePort": 8561,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  },
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "portIndex": 0,
+      "path": "/notificationserver/"
+    }
+  ],
+  "labels": {
+    "HAPROXY_GROUP": "internal"
+  }
+}

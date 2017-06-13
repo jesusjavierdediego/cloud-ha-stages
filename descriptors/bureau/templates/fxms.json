@@ -1,9 +1,9 @@
 {
-  "id": "fx-pos-web",
-  "cmd": "",
+  "id": "fx-ms-web",
+  "cmd": "CATALINA_OPTS='-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n'",
   "mem": 1024,
   "cpus": 2.0,
-  "instances": 2,
+  "instances": XXX_INSTANCES_XXX,
   "container": {
     "type": "DOCKER",
     "volumes": [
@@ -14,19 +14,19 @@
       }
     ],
     "docker": {
-      "image": "fsgregistry.azurecr.io/fx-pos-web:0.1.110",
+      "image": "fsgregistry.azurecr.io/fx-ms-web:XXX_VERSION_XXX",
       "network": "BRIDGE",
       "portMappings": [
         {
           "containerPort": 8080,
           "hostPort": 0,
-          "servicePort": 8090,
+          "servicePort": 8085,
           "protocol": "tcp"
         },
         {
           "containerPort": 8000,
           "hostPort": 0,
-          "servicePort": 8004,
+          "servicePort": 8005,
           "protocol": "tcp"
         }
       ]
