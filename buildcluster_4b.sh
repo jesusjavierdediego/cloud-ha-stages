@@ -1,13 +1,12 @@
 #!/bin/bash
 
-##########################################
+####################################################################################
 #
-# What: This script will run in the master node
-# in the cluster to add the private key neeeded to
+# What: This script will run in the DC/OS admin pool to add the private key neeeded to
 # mount the volume with the docker registry key
 # Contact: FSG SRE Team     
 #
-##########################################
+####################################################################################
 
 sudo apt-get install spawn --force-yes;
 

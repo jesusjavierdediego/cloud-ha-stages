@@ -2,7 +2,7 @@
   "id": "bureaumobileweb",
   "cmd": "java -Xmx1024m -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar /opt/bureau/services/bureaumobileweb.jar  --spring.application.name=bmw  --spring.cloud.config.profile=XXX_PROFILE_XXX",
   "mem": 1024,
-  "cpus": 2.0,
+  "cpus": 1.0,
   "instances": XXX_INSTANCES_XXX,
   "container": {
     "type": "DOCKER",
