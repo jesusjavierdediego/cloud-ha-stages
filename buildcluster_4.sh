@@ -15,7 +15,7 @@ function prop {
 
 
 #Copy the private key provided in the cluster creation to one of the master nodes
-scp -r -i $(prop 'privateKeyPath') dockerRegistry $(prop 'sshuser')@$(prop 'groupName')-mgmt.$(prop 'region').cloudapp.azure.com:/home/$(prop 'sshuser')
+scp -r -i $(prop 'privateKeyPath') shared $(prop 'sshuser')@$(prop 'groupName')-mgmt.$(prop 'region').cloudapp.azure.com:/home/$(prop 'sshuser')
 #scp -r -i ~/.ssh/id_rsa_stages ~/Dropbox/cloud-ha-stages/dockerRegistry bureau_user@fsgbureauspqat-mgmt.northeurope.cloudapp.azure.com:/home/bureau_user
 
 #connect to the master and run the scripts to mount volumes to the docker registry key
