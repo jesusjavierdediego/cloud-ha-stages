@@ -7,7 +7,6 @@ fi
 
 eval $(ssh-agent)
 pass=$(cat $2)
-echo $pass
 
 expect << EOF
   spawn ssh-add $1

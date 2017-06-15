@@ -1,5 +1,4 @@
 /tmp
+template.json
 *.tar.gz
 *.zip
-**/passFile
-**/privateKey

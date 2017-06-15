@@ -11,11 +11,6 @@
         "containerPath": "/etc/localtime",
         "hostPath": "/etc/localtime",
         "mode": "R"
-      },
-      {
-        "containerPath": "<PATH TO ALTERCONF SERVER.XML>",
-        "hostPath": "/mnt/fsghaenvironments/fx/XXX_STAGE_XXX",
-        "mode": "R"
       }
     ],
     "docker": {
@@ -37,18 +32,11 @@
       ]
     }
   },
-  "uris": [
-    "file:///mnt/fsghaenvironments/docker.tar.gz"
-  ],
   "healthChecks": [
     {
       "protocol": "HTTP",
       "portIndex": 0,
-      "path": "/fx-ms-web/",
-      "gracePeriodSeconds": 5,
-      "intervalSeconds": 5,
-      "maxConsecutiveFailures": 2,
-      "timeoutSeconds": 20
+      "path": "/fx-ms-web/"
     }
   ],
   "labels": {

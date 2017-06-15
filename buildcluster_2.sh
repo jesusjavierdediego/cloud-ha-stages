@@ -8,7 +8,7 @@
 ##########################################
 
 
-ENV=${1:-qatsp}
+ENV=${1:-qat}
 
 function prop {
     grep "${1}" env/${ENV}.properties|cut -d'=' -f2
@@ -17,8 +17,6 @@ function prop {
 # echo $(prop 'privateKeyPath')
 
 sudo ssh -i "$(prop 'privateKeyPath')" -v -o ExitOnForwardFailure=yes -fNL $(prop 'originPort'):localhost:$(prop 'destinationPort') -p 2200 -A $(prop 'sshuser')@$(prop 'groupName')-mgmt.$(prop 'region').cloudapp.azure.com && exit
-
-
 
 # az acs dcos browse --name containerservice-FSG_BureauSP_HAStage_QAT --resource-group $(prop 'resourceGroup') --disable-browser --ssh-key-file   $(prop 'privateKeyPath')
 # az acs dcos browse -g FSG_BureauSP_HAStage_QAT -n containerservice-FSG_BureauSP_HAStage_QAT --disable-browser --ssh-key-file /home/jdediego/.ssh/id_rsa_stages

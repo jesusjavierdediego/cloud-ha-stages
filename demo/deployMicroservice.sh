@@ -7,10 +7,10 @@
 # Contact:     
 #
 ##########################################
-ENV=${1:-qatsp}
+ENV=${1:-qat}
 
 function prop {
-    grep "${1}" ~/Dropbox/cloud-ha-stages/env/demo.properties|cut -d'=' -f2
+    grep "${1}" ~/Dropbox/cloud-ha-stages/env/${ENV}.properties|cut -d'=' -f2
 }
 
 # config loadbalancer for app

@@ -25,18 +25,11 @@
       ]
     }
   },
-  "uris": [
-    "file:///mnt/fsghaenvironments/docker.tar.gz"
-  ],
   "healthChecks": [
     {
       "protocol": "HTTP",
       "portIndex": 0,
-      "path": "/notificationserver/",
-      "gracePeriodSeconds": 10,
-      "intervalSeconds": 10,
-      "maxConsecutiveFailures": 2,
-      "timeoutSeconds": 30
+      "path": "/notificationserver/"
     }
   ],
   "labels": {

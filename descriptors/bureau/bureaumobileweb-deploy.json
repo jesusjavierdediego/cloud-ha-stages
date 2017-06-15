@@ -1,25 +1,25 @@
 {
   "id": "bureaumobileweb",
-  "cmd": "java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar /opt/bureau/services/bureaumobileweb.jar  --spring.application.name=bmw  --spring.cloud.config.profile=XXX_PROFILE_XXX",
+  "cmd": "java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar /opt/bureau/services/bureaumobileweb.jar  --spring.application.name=bmw  --spring.cloud.config.profile=qat",
   "mem": 1024,
   "cpus": 2.0,
-  "instances": XXX_INSTANCES_XXX,
+  "instances": 2,
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "fsgregistry.azurecr.io/bmwms:XXX_VERSION_XXX",
+      "image": "fsgregistry.azurecr.io/bmwms:0.1.99-SNAPSHOT",
       "network": "BRIDGE",
       "portMappings": [
         {
           "containerPort": 8080,
           "hostPort": 0,
-          "servicePort": XXX_SERVICEPORT_XXX,
+          "servicePort": 10003,
           "protocol": "tcp"
         },
         {
           "containerPort": 8000,
           "hostPort": 0,
-          "servicePort": XXX_DEBUGPORT_XXX,
+          "servicePort": 8000,
           "protocol": "tcp"
         }
       ]
