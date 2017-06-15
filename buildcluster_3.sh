@@ -7,7 +7,7 @@
 #
 ##########################################
 
-ENV=${1:-qat}
+ENV=${1:-qatsp}
 
 function prop {
     grep "${1}" env/${ENV}.properties|cut -d'=' -f2
@@ -20,6 +20,7 @@ intLbInstall=`dcos package list | grep -i lb-internal`
 weavescopeInstall=`dcos package list | grep -i weavescope`
 weavescopeProbeInstall=`dcos package list | grep -i weavescope-probe`
 msomsInstall=`dcos package list | grep -i msoms`
+
 
 if [ "$extLbInstall" == "" ] && [ "$intLbInstall" == "" ] && [ "$weavescopeInstall" == "" ] && [ "$weavescopeProbeInstall" == "" ] && [ "$msomsInstall" == "" ]
 then

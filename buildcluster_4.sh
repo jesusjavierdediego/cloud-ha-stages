@@ -7,7 +7,7 @@
 #
 ##########################################
 
-ENV=${1:-qat}
+ENV=${1:-qatsp}
 
 function prop {
     grep "${1}" env/${ENV}.properties|cut -d'=' -f2

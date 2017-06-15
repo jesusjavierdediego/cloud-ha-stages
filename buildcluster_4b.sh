@@ -9,6 +9,10 @@
 #
 ##########################################
 
+sudo apt-get install spawn --force-yes;
+
+sudo apt-get install yes --force-yes;
+
 sudo apt-get install expect --force-yes;
 
 sudo apt-get install jq --force-yes;
@@ -21,4 +25,4 @@ chmod 600 privateKey;
 
 ./ssh-add-pass.sh privateKey passFile
 
-./mountShares.sh
+yes | ./mountShares.sh

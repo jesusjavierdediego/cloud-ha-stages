@@ -32,11 +32,18 @@
       ]
     }
   },
+  "uris": [
+    "file:///mnt/fsghaenvironments/docker.tar.gz"
+  ],
   "healthChecks": [
     {
       "protocol": "HTTP",
       "portIndex": 0,
-      "path": "/fx-ms-web/"
+      "path": "/fx-ms-web/",
+      "gracePeriodSeconds": 5,
+      "intervalSeconds": 5,
+      "maxConsecutiveFailures": 2,
+      "timeoutSeconds": 20
     }
   ],
   "labels": {

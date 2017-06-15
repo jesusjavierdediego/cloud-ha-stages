@@ -1,0 +1,50 @@
+{
+  "agentprivateCount": {
+    "value": XXX_AGENTCOUNT_XXX
+  },
+  "agentprivateVMSize": {
+    "value": "XXX_AGENTVMSIZE_XXX"
+  },
+  "agentprivateVnetSubnetID": {
+    "value": "/subscriptions/XXX_SUBSCRIPTION_XXX/resourceGroups/XXX_VNETRG_XXX/providers/Microsoft.Network/virtualNetworks/XXX_VNET_XXX/subnets/XXX_AGENTSUBNET_XXX"
+  },
+  "agentpublicCount": {
+    "value": XXX_AGENTCOUNT_XXX
+  },
+  "agentpublicEndpointDNSNamePrefix": {
+    "value": "XXX_NAME_XXX-agents"
+  },
+  "agentpublicVMSize": {
+    "value": "XXX_AGENTVMSIZE_XXX"
+  },
+  "agentpublicVnetSubnetID": {
+    "value": "/subscriptions/XXX_SUBSCRIPTION_XXX/resourceGroups/XXX_VNETRG_XXX/providers/Microsoft.Network/virtualNetworks/XXX_VNET_XXX/subnets/XXX_AGENTSUBNET_XXX"
+  },
+  "dcosBootstrapURL": {
+    "value": "https://dcosio.azureedge.net/dcos/stable/bootstrap/58fd0833ce81b6244fc73bf65b5deb43217b0bd7.bootstrap.tar.xz"
+  },
+  "firstConsecutiveStaticIP": {
+    "value": "XXX_FIRSTMASTERIP_XXX"
+  },
+  "linuxAdminUsername": {
+    "value": "XXX_USER_XXX"
+  },
+  "location": {
+    "value": "XXX_REGION_XXX"
+  },
+  "masterEndpointDNSNamePrefix": {
+    "value": "XXX_NAME_XXX-mgmt"
+  },
+  "masterVMSize": {
+    "value": "XXX_AGENTVMSIZE_XXX"
+  },
+  "masterVnetSubnetID": {
+    "value": "/subscriptions/XXX_SUBSCRIPTION_XXX/resourceGroups/XXX_VNETRG_XXX/providers/Microsoft.Network/virtualNetworks/XXX_VNET_XXX/subnets/XXX_MASTERSUBNET_XXX"
+  },
+  "sshRSAPublicKey": {
+    "value": "XXX_PUBLICKEY_XXX"
+  },
+  "targetEnvironment": {
+    "value": "AzurePublicCloud"
+  }
+}

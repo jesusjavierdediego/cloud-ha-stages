@@ -24,7 +24,8 @@
     }
   ],
   "labels":{
-    "HAPROXY_GROUP":"external"
+    "HAPROXY_GROUP":"external",
+    "HAPROXY_0_STICKY":"true"
   }
 }
 

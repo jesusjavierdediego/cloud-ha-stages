@@ -1,6 +1,6 @@
 {
   "id": "bureaumobileweb",
-  "cmd": "java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar /opt/bureau/services/bureaumobileweb.jar  --spring.application.name=bmw  --spring.cloud.config.profile=XXX_PROFILE_XXX",
+  "cmd": "java -Xmx1024m -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar /opt/bureau/services/bureaumobileweb.jar  --spring.application.name=bmw  --spring.cloud.config.profile=XXX_PROFILE_XXX",
   "mem": 1024,
   "cpus": 2.0,
   "instances": XXX_INSTANCES_XXX,
@@ -25,11 +25,18 @@
       ]
     }
   },
+  "uris": [
+    "file:///mnt/fsghaenvironments/docker.tar.gz"
+  ],
   "healthChecks": [
     {
       "protocol": "HTTP",
       "portIndex": 0,
-      "path": "/bureaumobileweb/"
+      "path": "/bureaumobileweb/",
+      "gracePeriodSeconds": 5,
+      "intervalSeconds": 5,
+      "maxConsecutiveFailures": 2,
+      "timeoutSeconds": 20
     }
   ],
   "labels": {
