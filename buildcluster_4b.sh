@@ -16,7 +16,7 @@ sudo apt-get install expect --force-yes;
 
 sudo apt-get install jq --force-yes;
 
-cd dockerRegistry;
+cd shared;
 
 chmod +x ssh-add-pass.sh
 
