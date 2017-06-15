@@ -11,11 +11,6 @@
         "containerPath": "/etc/localtime",
         "hostPath": "/etc/localtime",
         "mode": "R"
-      },
-      {
-        "containerPath": "<PATH TO ALTERCONF SERVER.XML>",
-        "hostPath": "/mnt/fsghaenvironments/fx/XXX_STAGE_XXX",
-        "mode": "R"
       }
     ],
     "docker": {

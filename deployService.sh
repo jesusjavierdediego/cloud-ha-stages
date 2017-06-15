@@ -27,15 +27,7 @@ function prop {
 }
 
 # 1-Replace values in the service descriptor
-cat descriptors/bureau/templates/${SERVICENAME}.json \
-| sed 's/XXX_PROFILE_XXX/'$(prop 'profile')'/g'  \
-| sed 's/XXX_VERSION_XXX/'${VERSION}'/g'  \
-| sed 's/XXX_INSTANCES_XXX/'${INSTANCES}'/g'  \
-| sed 's/XXX_SERVICEPORT_XXX/'${SERVICEPORT}'/g'  \
-| sed 's/XXX_DEBUGPORT_XXX/'${DEBUGPORT}'/g'  \
-| sed 's/XXX_STAGE_XXX/'${STAGE}'/g'  \
-> descriptors/bureau/${SERVICENAME}-deploy.json
-
+cat descriptors/bureau/templates/${SERVICENAME}.json | sed 's/XXX_PROFILE_XXX/'$(prop 'profile')'/g' | sed 's/XXX_VERSION_XXX/'${VERSION}'/g' | sed 's/XXX_INSTANCES_XXX/'${INSTANCES}'/g' | sed 's/XXX_SERVICEPORT_XXX/'${SERVICEPORT}'/g' | sed 's/XXX_DEBUGPORT_XXX/'${DEBUGPORT}'/g' > descriptors/bureau/${SERVICENAME}-deploy.json
 azure group show $(prop 'resourceGroup') | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//'
 # 2-config loadbalancer for the service
 lbName=$(azure group show $(prop 'resourceGroup') | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//')
