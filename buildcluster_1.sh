@@ -21,7 +21,15 @@
 #
 #################################
 
-ENV=${1:-qat}
+ENV=${1:-qatsp}
+
+PROPERTY_FILE=env/general.properties
+
+function propGeneral {
+   PROP_KEY=$1
+   PROP_VALUE=`cat $PROPERTY_FILE | grep "$PROP_KEY" | cut -d'=' -f2`
+   echo $PROP_VALUE
+}
 
 function prop {
     grep "${1}" env/${ENV}.properties|cut -d'=' -f2
@@ -31,7 +39,22 @@ publicKey=$(< $(prop 'publicKey'))
 rgExists=$(az group list | grep -i $(prop 'resourceGroup'));
 nameExists=$(az network public-ip list | grep -i dcos-master-ip-$(prop 'groupName')-mgmt);
 
-cat acs-dcos-deploy.json | sed 's/XXX_USER_XXX/'$(prop 'sshuser')'/g' | sed 's/XXX_AGENTVMSIZE_XXX/'$(prop 'agentVmSize')'/g' | sed 's/XXX_MASTERCOUNT_XXX/'$(prop 'mastercount')'/g' |  sed 's/XXX_AGENTCOUNT_XXX/'$(prop 'agentcount')'/g' | sed 's/XXX_NAME_XXX/'$(prop 'groupName')'/g' | sed "s|XXX_PUBLICKEY_XXX|$publicKey|" > template.json;
+
+cat acs/azuredeploy.parameters.template.json \
+| sed 's/XXX_SUBSCRIPTION_XXX/'$(propGeneral 'subscription')'/g' \
+| sed 's/XXX_VNETRG_XXX/'$(propGeneral 'vnetrg')'/g' \
+| sed 's/XXX_VNET_XXX/'$(propGeneral 'mainvnet')'/g' \
+| sed 's/XXX_REGION_XXX/'$(prop 'region')'/g' \
+| sed 's/XXX_NAME_XXX/'$(prop 'groupName')'/g' \
+| sed 's/XXX_FIRSTMASTERIP_XXX/'$(prop 'firstConsecutiveStaticIP')'/g' \
+| sed 's/XXX_MASTERSUBNET_XXX/'$(prop 'subnet_master')'/g' \
+| sed 's/XXX_AGENTSUBNET_XXX/'$(prop 'subnet_agent')'/g' \
+| sed 's/XXX_AGENTVMSIZE_XXX/'$(prop 'agentVmSize')'/g' \
+| sed 's/XXX_MASTERCOUNT_XXX/'$(prop 'mastercount')'/g' \
+| sed 's/XXX_AGENTCOUNT_XXX/'$(prop 'agentcount')'/g' \
+| sed 's/XXX_USER_XXX/'$(prop 'sshuser')'/g' \
+| sed "s|XXX_PUBLICKEY_XXX|$publicKey|" \
+> acs/azuredeploy.parameters.json;
 
 
 if [ "$rgExists" == "" ]
@@ -45,7 +68,11 @@ echo $nameExists;
 
 if  [ "$nameExists" == "" ]
 then
-  az group deployment create --resource-group $(prop 'resourceGroup') --name $(prop 'groupName') --template-file template.json
+  az group deployment create \
+  --resource-group $(prop 'resourceGroup') \
+  --name $(prop 'groupName') \
+  --template-file  acs/azuredeploy.json \
+  --parameters  acs/azuredeploy.parameters.json
 else
   echo "name $(prop 'groupName') already exists";
   exit 1
