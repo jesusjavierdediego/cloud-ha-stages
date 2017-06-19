@@ -1,0 +1,34 @@
+{
+  "id": "node",
+  "mem": 512,
+  "cpus": 1.0,
+  "instances": 2,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "fsgregistry.azurecr.io/helloworld-node-microservice:latest",
+      "network": "BRIDGE",
+      "portMappings": [{ 
+        "containerPort": 8080, 
+        "hostPort": 0, 
+        "servicePort": 10002, 
+        "protocol": "tcp" 
+        } ]
+    }
+  },
+  "uris":  [
+       "file:///mnt/fsghaenvironments/docker.tar.gz"        
+   ],
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "portIndex": 0,
+      "path": "/"
+    }
+  ],
+  "labels":{
+    "HAPROXY_GROUP":"external"
+  }
+}
+
+

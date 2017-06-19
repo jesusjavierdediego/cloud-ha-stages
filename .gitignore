@@ -1,0 +1,7 @@
+/tmp
+*.tar.gz
+*.zip
+shared/passphrase
+shared/privateKey
+template.json
+descriptors/bureau/*-deploy.json
