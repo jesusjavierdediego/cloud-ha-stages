@@ -39,15 +39,45 @@ cat descriptors/bureau/templates/${SERVICENAME}.json \
 | sed 's/XXX_APPNAME_XXX/'${APPNAME}'/g'  \
 > descriptors/bureau/${SERVICENAME}-deploy.json
 
-azure group show $(prop 'resourceGroup') | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//'
+lbElements=`az network lb list --resource-group $(prop 'resourceGroup') | jq '. | length'`
+
+for (( lbId=0; lbId<$lbElements; lbId++ ))
+do
+    lbName=`az network lb list  --resource-group $(prop 'resourceGroup') | jq '.['$lbId'].name'`
+    lbName=`echo $lbName | tr "\"" "\n"`
+    if [[ $lbName == *"agent"* ]]; then
+        az network lb rule create --resource-group $(prop 'resourceGroup') --lb-name $lbName --name ${SERVICENAME}  --protocol tcp --frontend-ip-name dcos-agent-lbFrontEnd-$id --frontend-port ${SERVICEPORT} --backend-pool-name dcos-agent-pool-$id --backend-port ${SERVICEPORT}
+        echo "Rule Configured for: "$lbName" and "$SERVICENAME
+    else
+        echo "LB: "$lbName" is not agent, rule not configured"
+    fi    
+
+done
+
+#azure group show $(prop 'resourceGroup') | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//'
 # 2-config loadbalancer for the service
-lbName=$(azure group show $(prop 'resourceGroup') | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//')
-for id in `echo $lbName | tr "-" "\n"`; do echo $id; done
-az network lb rule create --resource-group $(prop 'resourceGroup') --lb-name $lbName --name ${SERVICENAME}  --protocol tcp --frontend-ip-name dcos-agent-lbFrontEnd-$id --frontend-port ${SERVICEPORT} --backend-pool-name dcos-agent-pool-$id --backend-port ${SERVICEPORT} 
+#lbName=$(az network lb --resource-group $(prop 'resourceGroup') | grep -i lb | grep agent | grep Name | sed 's/^.*[:][ ]//')
+#for id in `echo $lbName | tr "-" "\n"`; do echo $id; done
+#az network lb rule create --resource-group $(prop 'resourceGroup') --lb-name $lbName --name ${SERVICENAME}  --protocol tcp --frontend-ip-name dcos-agent-lbFrontEnd-$id --frontend-port ${SERVICEPORT} --backend-pool-name dcos-agent-pool-$id --backend-port ${SERVICEPORT} 
 
 # 3-config network security
-nsgName=$(azure network nsg list -g $(prop 'resourceGroup') | grep agent | grep public | awk '{print $2}')
-az network nsg rule create --resource-group $(prop 'resourceGroup') --nsg-name $nsgName --name ${SERVICENAME}-rule --access Allow --protocol Tcp --direction Inbound --priority ${PRIORITY} --source-address-prefix Internet  --destination-port-range ${SERVICEPORT}
+nsgElements=`az network nsg list --resource-group $(prop 'resourceGroup') | jq '. | length'`
+
+for (( nsgId=0; nsgId<$nsgElements; nsgId++ ))
+do
+    nsgName=`az network nsg list  --resource-group $(prop 'resourceGroup') | jq '.['$nsgId'].name'`
+    nsgName=`echo $nsgName | tr "\"" "\n"`
+    if [[ $nsgName == *"agent"* ]]; then
+        az network nsg rule create --resource-group $(prop 'resourceGroup') --nsg-name $nsgName --name ${SERVICENAME}-rule --access Allow --protocol Tcp --direction Inbound --priority ${PRIORITY} --source-address-prefix Internet  --destination-port-range ${SERVICEPORT}
+        echo "Rule Configured for: "$nsgName" and "$SERVICENAME
+    else
+        echo echo "NSG: "$nsgName" is not agent, rule not configured"
+    fi    
+
+done
+
+#nsgName=$(azure network nsg list -g $(prop 'resourceGroup') | grep agent | grep public | awk '{print $2}')
+#az network nsg rule create --resource-group $(prop 'resourceGroup') --nsg-name $nsgName --name ${SERVICENAME}-rule --access Allow --protocol Tcp --direction Inbound --priority ${PRIORITY} --source-address-prefix Internet  --destination-port-range ${SERVICEPORT}
 
 # 4-deploy service
 dcos marathon app add descriptors/bureau/${SERVICENAME}-deploy.json

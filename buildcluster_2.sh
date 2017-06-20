@@ -21,7 +21,7 @@ clusterUser=$(az keyvault secret show --name haenvironmentsUsr --vault-name fsgk
 
 # chmod +x shared/ssh-add-pass.sh
 
-# chmod 600 shared/privateKey
+chmod 600 shared/privateKey
 
 # expect << EOF
 #   spawn sudo ssh -i shared/privateKey -v -o ExitOnForwardFailure=yes -fNL $(prop 'originPort'):localhost:$(prop 'destinationPort') -p 2200 -A $clusterUser@$(prop 'groupName')-mgmt.$(prop 'region').cloudapp.azure.com && exit

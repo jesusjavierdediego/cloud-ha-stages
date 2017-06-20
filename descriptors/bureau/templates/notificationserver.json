@@ -33,13 +33,13 @@
       "protocol": "HTTP",
       "portIndex": 0,
       "path": "/notificationserver/",
-      "gracePeriodSeconds": 10,
-      "intervalSeconds": 10,
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
       "maxConsecutiveFailures": 2,
       "timeoutSeconds": 30
     }
   ],
   "labels": {
-    "HAPROXY_GROUP": "internal"
+    "HAPROXY_GROUP": "external"
   }
 }
