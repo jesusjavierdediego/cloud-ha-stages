@@ -50,6 +50,7 @@ if  [ "$nameExists" == "" ]
 then
   az group deployment create --resource-group $(prop 'resourceGroup') --name $(prop 'groupName') --template-file template.json
 else
-  echo "name $(prop 'groupName') already exists";
-  exit 1
+  echo "name $(prop 'groupName') already exists. Deleting previous cluster and create a new one.";
+   az group deployment delete --resource-group $(prop 'resourceGroup') --name $(prop 'groupName')
+   az group deployment create --resource-group $(prop 'resourceGroup') --name $(prop 'groupName') --template-file template.json
 fi

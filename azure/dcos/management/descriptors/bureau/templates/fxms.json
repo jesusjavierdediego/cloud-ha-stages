@@ -1,18 +1,29 @@
 {
-  "id": "notificationserver",
-  "cmd": "java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar /opt/bureau/services/notificationserver.jar  --spring.application.name=XXX_APPNAME_XXX  --spring.cloud.config.profile=XXX_PROFILE_XXX",
-  "mem": 512,
-  "cpus": 1.0,
+  "id": "fx-ms-web",
+  "mem": 1024,
+  "cpus": 2.0,
   "instances": XXX_INSTANCES_XXX,
   "container": {
     "type": "DOCKER",
+    "volumes": [
+      {
+        "containerPath": "/etc/localtime",
+        "hostPath": "/etc/localtime",
+        "mode": "RW"
+      },
+      {
+        "containerPath": "/usr/local/tomcat/alterconf",
+        "hostPath": "/mnt/fsghaenvironments/fx/ms/XXX_STAGE_XXX",
+        "mode": "RW"
+      }
+    ],
     "docker": {
-      "image": "fsgregistry.azurecr.io/notificationserver:XXX_VERSION_XXX",
+      "image": "fsgregistry.azurecr.io/spfxms:XXX_VERSION_XXX",
       "network": "BRIDGE",
       "portMappings": [
         {
           "containerPort": 8080,
-          "hostPort": 0,
+          "hostPort": 8085,
           "servicePort": XXX_SERVICEPORT_XXX,
           "protocol": "tcp"
         },
@@ -32,14 +43,15 @@
     {
       "protocol": "HTTP",
       "portIndex": 0,
-      "path": "/notificationserver/",
-      "gracePeriodSeconds": 10,
-      "intervalSeconds": 10,
+      "path": "/fx-ms-web/",
+      "gracePeriodSeconds": 180,
+      "intervalSeconds": 60,
       "maxConsecutiveFailures": 2,
       "timeoutSeconds": 30
     }
   ],
   "labels": {
-    "HAPROXY_GROUP": "internal"
+    "HAPROXY_GROUP": "external,internal",
+    "HAPROXY_0_STICKY": "true"
   }
 }

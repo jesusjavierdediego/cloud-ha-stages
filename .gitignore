@@ -1,7 +1,9 @@
 /tmp
 *.tar.gz
 *.zip
-shared/passphrase
-shared/privateKey
+passphrase
+privateKey
 template.json
-descriptors/bureau/*-deploy.json
+*-deploy.json
+*.retry
+log_*.txt

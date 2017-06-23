@@ -1,13 +1,13 @@
 {
-  "id": "bureaumobileweb",
-  "cmd": "java -Xmx1024m -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar /opt/bureau/services/bureaumobileweb.jar  --spring.application.name=XXX_APPNAME_XXX  --spring.cloud.config.profile=XXX_PROFILE_XXX",
-  "mem": 2048,
-  "cpus": 1.0,
+  "id": "notificationserver",
+  "cmd": "java -jar /opt/bureau/services/notificationserver.jar  --spring.application.name=notificationserver  --spring.cloud.config.profile=cit",
+  "mem": 1024,
+  "cpus": 0.5,
   "instances": XXX_INSTANCES_XXX,
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "fsgregistry.azurecr.io/bmwms:XXX_VERSION_XXX",
+      "image": "fsgregistry.azurecr.io/notificationserver:XXX_VERSION_XXX",
       "network": "BRIDGE",
       "portMappings": [
         {
@@ -32,14 +32,14 @@
     {
       "protocol": "HTTP",
       "portIndex": 0,
-      "path": "/bureaumobileweb/",
-      "gracePeriodSeconds": 5,
-      "intervalSeconds": 5,
+      "path": "/api/v1/notification/healthcheck",
+      "gracePeriodSeconds": 60,
+      "intervalSeconds": 30,
       "maxConsecutiveFailures": 2,
-      "timeoutSeconds": 20
+      "timeoutSeconds": 30
     }
   ],
   "labels": {
-    "HAPROXY_GROUP": "external"
+    "HAPROXY_GROUP": "internal"
   }
 }
