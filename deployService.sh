@@ -31,6 +31,7 @@ function prop {
 
 # 1-Replace values in the service descriptor
 cat descriptors/bureau/templates/${SERVICENAME}.json \
+| sed 's/XXX_STAGE_XXX/'${STAGE}'/g'  \
 | sed 's/XXX_PROFILE_XXX/'$(prop 'profile')'/g'  \
 | sed 's/XXX_VERSION_XXX/'${VERSION}'/g'  \
 | sed 's/XXX_INSTANCES_XXX/'${INSTANCES}'/g'  \
@@ -45,6 +46,7 @@ for (( lbId=0; lbId<$lbElements; lbId++ ))
 do
     lbName=`az network lb list  --resource-group $(prop 'resourceGroup') | jq '.['$lbId'].name'`
     lbName=`echo $lbName | tr "\"" "\n"`
+    id=`echo $lbName | cut -d '-' -f4`   
     if [[ $lbName == *"agent"* ]]; then
         az network lb rule create --resource-group $(prop 'resourceGroup') --lb-name $lbName --name ${SERVICENAME}  --protocol tcp --frontend-ip-name dcos-agent-lbFrontEnd-$id --frontend-port ${SERVICEPORT} --backend-pool-name dcos-agent-pool-$id --backend-port ${SERVICEPORT}
         echo "Rule Configured for: "$lbName" and "$SERVICENAME

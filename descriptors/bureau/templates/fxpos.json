@@ -1,6 +1,5 @@
 {
   "id": "fx-pos-web",
-  "cmd": "CATALINA_OPTS='-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n'",
   "mem": 1024,
   "cpus": 2.0,
   "instances": XXX_INSTANCES_XXX,
@@ -10,27 +9,27 @@
       {
         "containerPath": "/etc/localtime",
         "hostPath": "/etc/localtime",
-        "mode": "R"
+        "mode": "RW"
       },
       {
         "containerPath": "/usr/local/tomcat/alterconf",
-        "hostPath": "/mnt/fsghaenvironments/fx/XXX_STAGE_XXX",
-        "mode": "R"
+        "hostPath": "/mnt/fsghaenvironments/fx/pos/XXX_STAGE_XXX",
+        "mode": "RW"
       }
     ],
     "docker": {
-      "image": "fsgregistry.azurecr.io/fx-pos-web:XXX_VERSION_XXX",
+      "image": "fsgregistry.azurecr.io/spfxpos:XXX_VERSION_XXX",
       "network": "BRIDGE",
       "portMappings": [
         {
           "containerPort": 8080,
-          "hostPort": 0,
+          "hostPort": 8090,
           "servicePort": XXX_SERVICEPORT_XXX,
           "protocol": "tcp"
         },
         {
           "containerPort": 8000,
-          "hostPort": 0,
+          "hostPort": 8000,
           "servicePort": XXX_DEBUGPORT_XXX,
           "protocol": "tcp"
         }
@@ -44,11 +43,11 @@
     {
       "protocol": "HTTP",
       "portIndex": 0,
-      "path": "/fx-ms-web/",
-      "gracePeriodSeconds": 5,
-      "intervalSeconds": 5,
+      "path": "/fx-pos-web/",
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 120,
       "maxConsecutiveFailures": 2,
-      "timeoutSeconds": 20
+      "timeoutSeconds": 30
     }
   ],
   "labels": {

@@ -31,4 +31,4 @@ chmod 600 shared/privateKey
 # EOF
 
 
-sudo ssh -i shared/privateKey -v -o ExitOnForwardFailure=yes -fNL $(prop 'originPort'):localhost:$(prop 'destinationPort') -p 2200 -A $clusterUser@$(prop 'groupName')-mgmt.$(prop 'region').cloudapp.azure.com && exit
+sudo ssh -i shared/privateKey -o StrictHostKeyChecking=no -v -o ExitOnForwardFailure=yes -fNL $(prop 'originPort'):localhost:$(prop 'destinationPort') -p 2200 -A $clusterUser@$(prop 'groupName')-mgmt.$(prop 'region').cloudapp.azure.com && exit

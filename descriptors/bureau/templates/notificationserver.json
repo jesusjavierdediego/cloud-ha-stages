@@ -1,7 +1,7 @@
 {
   "id": "notificationserver",
-  "cmd": "java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar /opt/bureau/services/notificationserver.jar  --spring.application.name=XXX_APPNAME_XXX  --spring.cloud.config.profile=XXX_PROFILE_XXX",
-  "mem": 512,
+  "cmd": "java -jar /opt/bureau/services/notificationserver.jar  --spring.application.name=notificationserver  --spring.cloud.config.profile=cit",
+  "mem": 1024,
   "cpus": 1.0,
   "instances": XXX_INSTANCES_XXX,
   "container": {
@@ -32,7 +32,7 @@
     {
       "protocol": "HTTP",
       "portIndex": 0,
-      "path": "/notificationserver/",
+      "path": "/api/v1/notification/healthcheck",
       "gracePeriodSeconds": 300,
       "intervalSeconds": 60,
       "maxConsecutiveFailures": 2,
