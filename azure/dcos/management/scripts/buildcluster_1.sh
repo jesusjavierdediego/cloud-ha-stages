@@ -44,7 +44,6 @@ else
   echo "ResourceGroup $(prop 'resourceGroup') already exists, using existing group...";
 fi
 
-echo $nameExists;
 
 if  [ "$nameExists" == "" ]
 then

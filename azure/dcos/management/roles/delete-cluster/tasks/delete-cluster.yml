@@ -1,0 +1,5 @@
+---
+- name: DELETING CLUSTER
+  shell: scripts/deletecluster.sh >> logs/log_delete.txt
+  ignore_errors: yes 
+

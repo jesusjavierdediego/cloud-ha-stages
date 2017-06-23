@@ -91,6 +91,6 @@ else
   echo "weavescopeInstall: $weavescopeInstall";
   echo "weavescopeProbeInstall: $weavescopeProbeInstall";
   echo "msomsInstall: $msomsInstall";
-  exit 1
+  exit 1STEP 2
 fi
 
