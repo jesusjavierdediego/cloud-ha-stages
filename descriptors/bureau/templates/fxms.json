@@ -13,7 +13,7 @@
       },
       {
         "containerPath": "/usr/local/tomcat/alterconf",
-        "hostPath": "/mnt/fsghaenvironments/fx/XXX_STAGE_XXX",
+        "hostPath": "/mnt/fsghaenvironments/fx/ms/XXX_STAGE_XXX",
         "mode": "RW"
       }
     ],
@@ -29,7 +29,7 @@
         },
         {
           "containerPort": 8000,
-          "hostPort": 8000,
+          "hostPort": 0,
           "servicePort": XXX_DEBUGPORT_XXX,
           "protocol": "tcp"
         }
@@ -44,14 +44,14 @@
       "protocol": "HTTP",
       "portIndex": 0,
       "path": "/fx-ms-web/",
-      "gracePeriodSeconds": 300,
-      "intervalSeconds": 120,
+      "gracePeriodSeconds": 180,
+      "intervalSeconds": 60,
       "maxConsecutiveFailures": 2,
       "timeoutSeconds": 30
     }
   ],
   "labels": {
-    "HAPROXY_GROUP": "external",
+    "HAPROXY_GROUP": "external,internal",
     "HAPROXY_0_STICKY": "true"
   }
 }

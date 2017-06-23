@@ -33,8 +33,8 @@
       "protocol": "HTTP",
       "portIndex": 0,
       "path": "/bureaumobileweb/rest/rateboard/refined/NZ/",
-      "gracePeriodSeconds": 300,
-      "intervalSeconds": 60,
+      "gracePeriodSeconds": 90,
+      "intervalSeconds": 45,
       "maxConsecutiveFailures": 2,
       "timeoutSeconds": 20
     }

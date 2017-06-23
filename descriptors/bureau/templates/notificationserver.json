@@ -2,7 +2,7 @@
   "id": "notificationserver",
   "cmd": "java -jar /opt/bureau/services/notificationserver.jar  --spring.application.name=notificationserver  --spring.cloud.config.profile=cit",
   "mem": 1024,
-  "cpus": 1.0,
+  "cpus": 0.5,
   "instances": XXX_INSTANCES_XXX,
   "container": {
     "type": "DOCKER",
@@ -33,13 +33,13 @@
       "protocol": "HTTP",
       "portIndex": 0,
       "path": "/api/v1/notification/healthcheck",
-      "gracePeriodSeconds": 300,
-      "intervalSeconds": 60,
+      "gracePeriodSeconds": 60,
+      "intervalSeconds": 30,
       "maxConsecutiveFailures": 2,
       "timeoutSeconds": 30
     }
   ],
   "labels": {
-    "HAPROXY_GROUP": "external"
+    "HAPROXY_GROUP": "internal"
   }
 }

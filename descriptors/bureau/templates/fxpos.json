@@ -1,7 +1,7 @@
 {
   "id": "fx-pos-web",
   "mem": 1024,
-  "cpus": 2.0,
+  "cpus": 1.0,
   "instances": XXX_INSTANCES_XXX,
   "container": {
     "type": "DOCKER",
@@ -29,7 +29,7 @@
         },
         {
           "containerPort": 8000,
-          "hostPort": 8000,
+          "hostPort": 0,
           "servicePort": XXX_DEBUGPORT_XXX,
           "protocol": "tcp"
         }
@@ -44,8 +44,8 @@
       "protocol": "HTTP",
       "portIndex": 0,
       "path": "/fx-pos-web/",
-      "gracePeriodSeconds": 300,
-      "intervalSeconds": 120,
+      "gracePeriodSeconds": 180,
+      "intervalSeconds": 60,
       "maxConsecutiveFailures": 2,
       "timeoutSeconds": 30
     }
