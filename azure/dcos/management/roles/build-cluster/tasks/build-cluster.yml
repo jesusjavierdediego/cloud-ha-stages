@@ -14,7 +14,7 @@
 # - name: "STEP 4 - Killing ssh tunnel to cluster"
 #   shell: ps axuf | grep 2222 | grep ssh | awk '{ print "kill -9 " $1}' >> logs/log_4.txt
 
-- name: "CLEAN UP"
-  shell: scripts/cleanUp.sh >> logs/log_cleanup.txt
+# - name: "CLEAN UP"
+#   shell: scripts/cleanUp.sh >> logs/log_cleanup.txt
 
 

@@ -57,6 +57,8 @@ expect << EOF
     expect eof
 EOF
 
+sleep 5
+
 expect << EOF
     spawn sudo ssh -o StrictHostKeyChecking=no -i shared/privateKey -v -fNL $(prop 'originPort'):localhost:$(prop 'destinationPort') -p 2200 -A $clusterUser@$(prop 'groupName')-mgmt.$(prop 'region').cloudapp.azure.com
     expect "password"
@@ -66,6 +68,5 @@ expect << EOF
     expect eof
 EOF
 
-exit 0
 
 

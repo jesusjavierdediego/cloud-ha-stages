@@ -104,11 +104,11 @@ Execute the script buildcluster_2 to communicate to the new cluster
 
 It is a SSH tunnel to port 80. You should be able to connect to the DC/OS cluster dashboard through
 
-http://localhost
+http://localhost:<tunnelPort>
 
-http://localhost/marathon
+http://localhost:<tunnelPort>/marathon
 
-http://localhost/mesos
+http://localhost:<tunnelPort>/mesos
 
 
 To provide the cluster login data to the private image registry and injecting other files to the hosts to make them available in volumes to co
