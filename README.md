@@ -74,6 +74,13 @@ SP UAT: uatsp
 SP Live: prdsp
 
 
+For instance:
+
+```bash
+ansible-playbook provision.yml -e "env=qatsp"
+```
+
+
 The playbook will run several bash scripts with the next steps:
 
 #### STEP 1
@@ -210,8 +217,31 @@ Use the script deployService.sh passing the next parameters:
 
 7-Priority of the rule in the NSG
 
+
+### Destroy the cluster
+Execute the Ansible Playbook called "deletion.yml" with the name of the environment to be deleted:
+
+
+SP QAT: qatsp
+
+SP UAT: uatsp
+
+SP Live: prdsp
+
+
+For instance:
+
+```bash
+ansible-playbook deletion.yml -e "env=qatsp"
+```
+
+
 ## Videos
 Please see the CITP sessions at Youtube: 
+
+CITP Introduction: https://youtu.be/Dx2RP9Br4xc
+
+CITP Infrastructure as Code: https://youtu.be/bC1j4KnMXFA
 
 
 ## Resources

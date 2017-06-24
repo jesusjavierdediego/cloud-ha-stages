@@ -1,11 +1,11 @@
 ---
-# - name: "STEP 1 - Create RG and ACS cluster."
-#   shell: scripts/buildcluster_1.sh {{ env }} >> logs/log_1.txt
-#   ignore_errors: yes
+- name: "STEP 1 - Create RG and ACS cluster."
+  shell: scripts/buildcluster_1.sh {{ env }} >> logs/log_1.txt
+  ignore_errors: yes
 
-# - name: "STEP 2 - Install shared volumes and connect to the cluster via SSH tunnel."
-#   shell: scripts/buildcluster_2.sh {{ env }} >> logs/log_2.txt
-#   ignore_errors: yes 
+- name: "STEP 2 - Install shared volumes and connect to the cluster via SSH tunnel."
+  shell: scripts/buildcluster_2.sh {{ env }} >> logs/log_2.txt
+  ignore_errors: yes 
 
 - name: "STEP 3 - Create LBs and NSG rules. Install monitor."
   shell: scripts/buildcluster_3.sh {{ env }} >> logs/log_3.txt

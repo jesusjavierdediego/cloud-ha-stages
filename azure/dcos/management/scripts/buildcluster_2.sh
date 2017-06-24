@@ -28,20 +28,20 @@ passphrase=$(az keyvault secret show --name haenvironmentsPwd --vault-name fsgke
 
 # Copy the private key provided in the cluster creation to one of the master nodes
 ssh-keygen -f "~/.ssh/known_hosts" -R $(prop 'groupName')-mgmt.$(prop 'region').cloudapp.azure.com
-expect << EOF
-    spawn scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=~/.ssh/known_hosts -r -i shared/privateKey shared  $clusterUser@$(prop 'groupName')-mgmt.$(prop 'region').cloudapp.azure.com:/home/$clusterUser
-    expect "Enter passphrase for key"
-    send "$passphrase\r"
-    expect eof
-EOF
+# expect << EOF
+#     spawn scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=~/.ssh/known_hosts -r -i shared/privateKey shared  $clusterUser@$(prop 'groupName')-mgmt.$(prop 'region').cloudapp.azure.com:/home/$clusterUser
+#     expect "Enter passphrase for key"
+#     send "$passphrase\r"
+#     expect eof
+# EOF
 
 # Executes script to get the shared volume in all nodes in the cluster
-expect << EOF
-    spawn ssh -o StrictHostKeyChecking=no -i shared/privateKey  $clusterUser@$(prop 'groupName')-mgmt.$(prop 'region').cloudapp.azure.com shared/createShared.sh
-    expect "Enter passphrase for key"
-    send "$passphrase\r"
-    expect eof
-EOF
+# expect << EOF
+#     spawn ssh -o StrictHostKeyChecking=no -i shared/privateKey  $clusterUser@$(prop 'groupName')-mgmt.$(prop 'region').cloudapp.azure.com shared/createShared.sh
+#     expect "Enter passphrase for key"
+#     send "$passphrase\r"
+#     expect eof
+# EOF
 
 # Open SSH tunnel
 expect << EOF
