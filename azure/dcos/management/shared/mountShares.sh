@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install jq used for the next command
-sudo apt-get install jq
+# sudo apt-get install jq
 
 # Create the local folder that will contain our share
 if [ ! -d "/mnt/fsghaenvironments" ]; then sudo mkdir -p "/mnt/fsghaenvironments" ; fi

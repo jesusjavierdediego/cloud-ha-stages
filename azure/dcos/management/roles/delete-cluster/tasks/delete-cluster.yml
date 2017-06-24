@@ -1,5 +1,6 @@
 ---
-- name: DELETING CLUSTER
-  shell: scripts/deletecluster.sh >> logs/log_delete.txt
+- name: "Deleting ResourceGroup for cluster {{ env }}."
+  # pause: prompt='Please confirm you want to delete the cluster! Press Enter to continue. Press Ctrl+c and then "a" to abort'
+  shell: scripts/deletecluster.sh {{ env }} >> logs/log_delete.txt
   ignore_errors: yes 
 

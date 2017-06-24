@@ -9,13 +9,13 @@
 ####################################################################################
 
 
-sudo apt-get install expect --force-yes;
+sudo apt-get --yes install expect;
 
-sudo apt-get install jq --force-yes;
+sudo apt-get --yes install jq;
 
 cd shared;
 
-chmod +x ssh-add-pass.sh
+chmod +x ssh-add-pass.sh;
 
 chmod 600 privateKey;
 

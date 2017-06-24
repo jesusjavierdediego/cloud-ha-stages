@@ -10,6 +10,6 @@ eval $(ssh-agent)
 expect << EOF
   spawn ssh-add $1
   expect "Enter passphrase for privateKey:"
-  send "$(cat passphrase)"
+  send "$(cat passphrase)\n";
   expect eof
 EOF

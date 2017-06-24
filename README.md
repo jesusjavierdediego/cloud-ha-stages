@@ -64,6 +64,17 @@ You can re-use the templates in this repository for new environments.
 
 
 ### Create the cluster
+Execute the Ansible Playbook called "provision.yml" with the name of the environment to be created:
+
+
+SP QAT: qatsp
+
+SP UAT: uatsp
+
+SP Live: prdsp
+
+
+The playbook will run several bash scripts with the next steps:
 
 #### STEP 1
 Script: buildcluster_1
@@ -89,6 +100,38 @@ http://localhost/marathon
 http://localhost/mesos
 
 
+To provide the cluster login data to the private image registry and injecting other files to the hosts to make them available in volumes to co
+To provide the cluster login data to the private image registry and injecting other files to the hosts to make them available in volumes to containers we need to mount a shared drive in all the nodes in the cluster. This script sends the private key to the admin node and connect to it to Cloud Storage by running the script buildcluster_4b that mounts the shared drive from the cluster admin pool.
+
+Docker Registry Access:
+
+The services will include the tar.gz file in the descriptor to be found in every node and will be used to connect to the private registry:
+
+```JSON
+"uris": [
+    "file:///mnt/fsghaenvironments/docker.tar.gz"
+],
+```
+
+Shared Files in Volumes:
+
+Other files (e.g. Tomcat configuration, datasources, etc) will be available for different environments in the shared drive. These locations will be available in all of teh nodes of the cluster. Define the container volumes in the descriptors to access to the files in the host. For instance:
+
+```JSON
+ "volumes": [
+      {
+        "containerPath": "/etc/localtime",
+        "hostPath": "/etc/localtime",
+        "mode": "RW"
+      },
+      {
+        "containerPath": "/usr/local/tomcat/alterconf",
+        "hostPath": "/mnt/fsghaenvironments/fx/ms/XXX_STAGE_XXX",
+        "mode": "RW"
+      }
+    ],
+```
+
 #### STEP 3
 Script: buildcluster_3
 
@@ -100,28 +143,8 @@ You should be able to connect through your browser to the cluster. For instance:
 
 HA Proxy: http://[clusterName]-agents.[locationZone].cloudapp.azure.com:9090/haproxy?stats
 
-Internal Monitor:  http://localhost/service/weavescope
+Internal Monitor:  http://localhost:8089/service/weavescope
 
-
-
-#### STEP 4
-Script: buildcluster_4
-
-To provide the cluster login data to the private image registry and injecting other files to the hosts to make them available in volumes to containers we need to mount a shared drive in all the nodes in the cluster. This script sends the private key to the admin node and connect to it to Cloud Storage by running the script buildcluster_4b that mounts the shared drive from the cluster admin pool.
-
-Docker Registry Access:
-
-The services will include the tar.gz file in the descriptor to be found in every node and will be used to connect to the private registry:
-
-
-"uris": [
-    "file:///mnt/fsghaenvironments/docker.tar.gz"
-],
-
-
-Shared Files in Volumes:
-
-Other files (e.g. Tomcat configuration, datasources, etc) will be available for different environments in the shared drive.
 
 
 ### Deploy services
@@ -147,25 +170,29 @@ Prepare your JSON descriptors according to this information.
 
 Internal stateless service:
 
-
+```JSON
 "labels": {
     "HAPROXY_GROUP": "internal"
   }
-
+```
 
 External stateless service:
 
+```JSON
 "labels": {
     "HAPROXY_GROUP": "external"
   }
+```
+
 
 Stateful external service (redirect requests to the same container according to source IP and protocol):
 
+```JSON
 "labels": {
     "HAPROXY_GROUP": "external",
     "HAPROXY_0_STICKY": "true"
 }
-
+```
 
 Use the script deployService.sh passing the next parameters:
 
@@ -182,6 +209,9 @@ Use the script deployService.sh passing the next parameters:
 6-External port for external debug (default: 8000)
 
 7-Priority of the rule in the NSG
+
+## Videos
+Please see the CITP sessions at Youtube: 
 
 
 ## Resources
