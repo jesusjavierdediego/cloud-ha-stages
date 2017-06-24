@@ -64,8 +64,8 @@ You can re-use the templates in this repository for new environments.
 
 
 ### Create the cluster
-Execute the Ansible Playbook called "provision.yml" with the name of the environment to be created:
-
+Execute the Ansible Playbook called "provision.yml". You will need to pass two arguments. 
+Firstly, the name of the environment to be created. 
 
 SP QAT: qatsp
 
@@ -74,10 +74,14 @@ SP UAT: uatsp
 SP Live: prdsp
 
 
+Secondly, the password for the root user. 
+It will be used to create the SSH tunnel to the cluster in phase 2.
+
+
 For instance:
 
 ```bash
-ansible-playbook provision.yml -e "env=qatsp"
+ansible-playbook provision.yml -e "env=qatsp pwd=sudoPassword"
 ```
 
 
