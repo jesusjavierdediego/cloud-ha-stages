@@ -104,11 +104,11 @@ Execute the script buildcluster_2 to communicate to the new cluster
 
 It is a SSH tunnel to port 80. You should be able to connect to the DC/OS cluster dashboard through
 
-http://localhost:<tunnelPort>
+http://localhost:[tunnelPort]
 
-http://localhost:<tunnelPort>/marathon
+http://localhost:[tunnelPort]/marathon
 
-http://localhost:<tunnelPort>/mesos
+http://localhost:[tunnelPort]/mesos
 
 
 To provide the cluster login data to the private image registry and injecting other files to the hosts to make them available in volumes to co
@@ -154,7 +154,7 @@ You should be able to connect through your browser to the cluster. For instance:
 
 HA Proxy: http://[clusterName]-agents.[locationZone].cloudapp.azure.com:9090/haproxy?stats
 
-Internal Monitor:  http://localhost:8089/service/weavescope
+Internal Monitor:  http://localhost:[tunnelPort]/service/weavescope
 
 
 
